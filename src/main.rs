@@ -1,4 +1,7 @@
-use iced::{button, Button, Column, Text};
+use iced::{
+    button, executor, Align, Application, Button, Clipboard, Column, Command, Element, Settings,
+    Text,
+};
 
 struct Counter {
     value: i32,
@@ -6,21 +9,46 @@ struct Counter {
     decrement_button: button::State,
 }
 
-impl Counter {
-    pub fn view(&mut self) -> Column<Message> {
+impl Default for Counter {
+    fn default() -> Self {
+        Self {
+            value: 0,
+            increment_button: button::State::new(),
+            decrement_button: button::State::new(),
+        }
+    }
+}
+
+impl Application for Counter {
+    type Executor = executor::Default;
+    type Message = Message;
+    type Flags = ();
+
+    fn new(_flags: Self::Flags) -> (Self, Command<Self::Message>) {
+        (Self::default(), Command::none())
+    }
+
+    fn title(&self) -> String {
+        String::from("A Simple Counter")
+    }
+
+    fn view(&mut self) -> Element<Self::Message> {
         Column::new()
+            .padding(20)
+            .align_items(Align::Center)
             .push(
-                Button::new(&mut self.increment_button, Text::new("+"))
+                Button::new(&mut self.increment_button, Text::new("Increment"))
                     .on_press(Message::IncrementPressed),
             )
             .push(Text::new(self.value.to_string()).size(50))
             .push(
-                Button::new(&mut self.decrement_button, Text::new("-"))
+                Button::new(&mut self.decrement_button, Text::new("Decrement"))
                     .on_press(Message::DecrementPressed),
             )
+            .into()
     }
 
-    pub fn update(&mut self, message: Message) {
+    fn update(&mut self, message: Message, _clipboard: &mut Clipboard) -> Command<Self::Message> {
         match message {
             Message::IncrementPressed => {
                 self.value += 1;
@@ -29,6 +57,7 @@ impl Counter {
                 self.value -= 1;
             }
         }
+        Command::none()
     }
 }
 
@@ -38,6 +67,6 @@ pub enum Message {
     DecrementPressed,
 }
 
-fn main() {
-    println!("Hello, world!");
+fn main() -> iced::Result {
+    Counter::run(Settings::default())
 }
