@@ -1,12 +1,33 @@
 ![gihub workflow status](https://github.com/den-taku/test-iced/actions/workflows/on_merge.yml/badge.svg)
 
-# rust-template
-Template for Rust projects
+# test-iced
+Attempt to use Iced
 
 # Getting Started
 
-1. In `Cargo.toml`, replace `"rust-template"` with project name and write description.
-2. Rechoose appropriate LICENSE.
-3. Modify `Dockerfile`.
-4. Set up `develop` branch as the default bransh.
-5. Fit `README.md` to your project.
+- [x] In `Cargo.toml`, replace `"rust-template"` with project name and write description.
+- [x] Rechoose appropriate LICENSE.
+- [x] Modify `Dockerfile`.
+- [ ] Set up `develop` branch as the default bransh.
+- [ ] Fit `README.md` to your project.
+
+# Notes
+
+- [Iced](https://github.com/iced-rs/iced)
+  - クロスコンパイルに対応
+  - latest: v0.3 (2022/2/9)
+  - Elmの影響を受けている
+  - Rustのみで実装
+  - 参考記事
+    - [RustでGUIプログラミング – Icedでtourを触りつつ日本語表示対応をしてみた](https://dev.classmethod.jp/articles/rust-with-gui-tryon-tour/)
+    - [Rust・GUIフレームワークicedでランチャーを作った](https://zenn.dev/kyoheiu/articles/40273bda9d5168)
+    - [RustのIcedを使って簡単な画像ビューア](https://zenn.dev/tris/articles/e60efe7c60a770)
+
+- Architecture
+  - State: 状態を管理
+  - Message: イベント
+  - View logic: Stateに従ってウィジェットなどを表示
+  - Update: Messageに従って状態を更新
+  - 非同期処理
+    - Command: 単発的な非同期処理，結果をMessageとして渡す
+    - Subscription: 常に待機させておき，定期的にMessageを渡す
