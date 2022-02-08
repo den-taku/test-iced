@@ -34,7 +34,7 @@ Attempt to use Iced
     - Subscription: 常に待機させておき，定期的にMessageを渡す
 
 - リンクに失敗
-- `~/.cargo/config`に以下のように追記
+  - `~/.cargo/config`に以下のように追記
   - ```toml
     [target.x86_64-apple-darwin]
     rustflags = [
