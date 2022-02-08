@@ -1,7 +1,7 @@
 # FROM rust:1.56.0 AS cacher
 FROM ekidd/rust-musl-builder:stable AS builder
 
-WORKDIR /user/rust-template
+WORKDIR /user/test-iced
 COPY Cargo.toml Cargo.toml
 
 # for caching
@@ -17,18 +17,18 @@ RUN rm src/main.rs
 COPY src/ src/
 
 # for recompile
-RUN rm -f target/x86_64-unknown-linux-musl/release/deps/rust_template*
+RUN rm -f target/x86_64-unknown-linux-musl/release/deps/test_iced*
 
-RUN rm -f target/x86_64-unknown-linux-musl/release/deps/librust_template*
+RUN rm -f target/x86_64-unknown-linux-musl/release/deps/libtest_iced*
 
 RUN cargo build --release --target x86_64-unknown-linux-musl
-RUN strip /user/rust-template/target/x86_64-unknown-linux-musl/release/rust-template
+RUN strip /user/test-iced/target/x86_64-unknown-linux-musl/release/test-iced
 
 # FROM ekidd/rust-musl-builder:stable
 FROM rust:1.57-slim
 
 COPY --from=builder \
-    /user/rust-template/target/x86_64-unknown-linux-musl/release/rust-template /
+    /user/test-iced/target/x86_64-unknown-linux-musl/release/test-iced /
 RUN mkdir target
 
-ENTRYPOINT [ "/rust-template" ]
+ENTRYPOINT [ "/test-iced" ]

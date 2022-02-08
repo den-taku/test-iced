@@ -1,4 +1,4 @@
-![gihub workflow status](https://github.com/den-taku/rust-template/actions/workflows/on_merge.yml/badge.svg)
+![gihub workflow status](https://github.com/den-taku/test-iced/actions/workflows/on_merge.yml/badge.svg)
 
 # rust-template
 Template for Rust projects
