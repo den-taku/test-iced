@@ -27,7 +27,7 @@ Attempt to use Iced
   - State: 状態を管理
   - Message: イベント
   - View logic: Stateに従ってウィジェットなどを表示
-  - Update: Messageに従って状態を更新
+  - Update logic: Messageに従って状態を更新
   - 非同期処理
     - Command: 単発的な非同期処理，結果をMessageとして渡す
     - Subscription: 常に待機させておき，定期的にMessageを渡す
