@@ -1,7 +1,11 @@
-use iced::{
-    button, executor, Align, Application, Button, Clipboard, Column, Command, Element, Settings,
-    Text,
+use file_rotate::{
+    compression::Compression, suffix::AppendTimestamp, suffix::FileLimit, ContentLimit, FileRotate,
 };
+use iced::{
+    button, executor, window, Align, Application, Button, Clipboard, Color, Column, Command,
+    Element, Settings, Text,
+};
+use simplelog::*;
 
 struct Counter {
     value: i32,
@@ -59,6 +63,14 @@ impl Application for Counter {
         }
         Command::none()
     }
+
+    fn mode(&self) -> window::Mode {
+        window::Mode::Windowed
+    }
+
+    fn background_color(&self) -> Color {
+        Color::from_rgb8(30, 43, 120)
+    }
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -68,6 +80,17 @@ pub enum Message {
 }
 
 fn main() -> iced::Result {
+    CombinedLogger::init(vec![WriteLogger::new(
+        LevelFilter::Debug,
+        Config::default(),
+        FileRotate::new(
+            "target/trace_log",
+            AppendTimestamp::default(FileLimit::MaxFiles(10)),
+            ContentLimit::Lines(100_000),
+            Compression::None,
+        ),
+    )])
+    .unwrap();
     Counter::run(Settings {
         default_font: Some(include_bytes!(
             "../font/YonagaOldMincho_Version200/YonagaOldMincho-Regular.ttf"
