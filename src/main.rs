@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 use file_rotate::{
     compression::Compression, suffix::AppendTimestamp, suffix::FileLimit, ContentLimit, FileRotate,
 };
