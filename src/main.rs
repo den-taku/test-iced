@@ -37,12 +37,12 @@ impl Application for Counter {
             .padding(20)
             .align_items(Align::Center)
             .push(
-                Button::new(&mut self.increment_button, Text::new("Increment"))
+                Button::new(&mut self.increment_button, Text::new("１増やす"))
                     .on_press(Message::IncrementPressed),
             )
             .push(Text::new(self.value.to_string()).size(50))
             .push(
-                Button::new(&mut self.decrement_button, Text::new("Decrement"))
+                Button::new(&mut self.decrement_button, Text::new("１減らす"))
                     .on_press(Message::DecrementPressed),
             )
             .into()
@@ -68,5 +68,10 @@ pub enum Message {
 }
 
 fn main() -> iced::Result {
-    Counter::run(Settings::default())
+    Counter::run(Settings {
+        default_font: Some(include_bytes!(
+            "../font/YonagaOldMincho_Version200/YonagaOldMincho-Regular.ttf"
+        )),
+        ..Settings::default()
+    })
 }
