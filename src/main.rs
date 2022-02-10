@@ -1,3 +1,4 @@
+// for WindowsOS
 #![windows_subsystem = "windows"]
 
 use file_rotate::{
