@@ -76,6 +76,10 @@ impl Application for Counter {
     fn background_color(&self) -> Color {
         Color::from_rgb8(30, 43, 120)
     }
+
+    fn subscription(&self) -> iced::Subscription<Self::Message> {
+        iced::time::every(std::time::Duration::from_millis(500)).map(|_| Message::IncrementPressed)
+    }
 }
 
 fn fizz_buzz(number: i32) -> String {
