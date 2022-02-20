@@ -42,12 +42,14 @@ impl Application for Counter {
     fn view(&mut self) -> Element<Self::Message> {
         Column::new()
             .padding(20)
+            .width(iced::Length::Fill)
+            .height(iced::Length::Fill)
             .align_items(Align::Center)
             .push(
                 Button::new(&mut self.increment_button, Text::new("１増やす"))
                     .on_press(Message::IncrementPressed),
             )
-            .push(Text::new(fizz_buzz(self.value)).size(50))
+            .push(Text::new(fizz_buzz(self.value)).size(250))
             .push(
                 Button::new(&mut self.decrement_button, Text::new("１減らす"))
                     .on_press(Message::DecrementPressed),
@@ -81,7 +83,7 @@ fn fizz_buzz(number: i32) -> String {
         "FizzBuzz".to_string()
     } else if number % 5 == 0 {
         "Buzz".to_string()
-    } else if number % 3== 0 {
+    } else if number % 3 == 0 {
         "Fizz".to_string()
     } else {
         number.to_string()
