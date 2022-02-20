@@ -47,7 +47,7 @@ impl Application for Counter {
                 Button::new(&mut self.increment_button, Text::new("１増やす"))
                     .on_press(Message::IncrementPressed),
             )
-            .push(Text::new(self.value.to_string()).size(50))
+            .push(Text::new(fizz_buzz(self.value)).size(50))
             .push(
                 Button::new(&mut self.decrement_button, Text::new("１減らす"))
                     .on_press(Message::DecrementPressed),
@@ -73,6 +73,18 @@ impl Application for Counter {
 
     fn background_color(&self) -> Color {
         Color::from_rgb8(30, 43, 120)
+    }
+}
+
+fn fizz_buzz(number: i32) -> String {
+    if number % 15 == 0 {
+        "FizzBuzz".to_string()
+    } else if number % 5 == 0 {
+        "Buzz".to_string()
+    } else if number % 3== 0 {
+        "Fizz".to_string()
+    } else {
+        number.to_string()
     }
 }
 
