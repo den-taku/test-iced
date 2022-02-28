@@ -114,6 +114,8 @@ fn main() -> iced::Result {
     .unwrap();
     Counter::run(Settings {
         default_font: Some(include_bytes!(
+            // Install from here https://booth.pm/ja/items/3489185
+            // and unzip in test-iced/font
             "../font/YonagaOldMincho_Version200/YonagaOldMincho-Regular.ttf"
         )),
         ..Settings::default()
